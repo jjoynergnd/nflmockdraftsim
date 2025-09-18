@@ -1,14 +1,20 @@
-﻿// src/db/index.ts
-import { Pool } from "pg";
+﻿import pkg from 'pg';
+const { Pool } = pkg;
+import type { QueryResult } from 'pg';
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL
 });
 
-export async function query(text: string, params?: any[]) {
-  const start = Date.now();
-  const res = await pool.query(text, params);
-  const duration = Date.now() - start;
-  console.log("executed query", { text, duration, rows: res.rowCount });
-  return res;
-}
+export const query = async (
+    text: string,
+    params?: (string | number | null)[]
+): Promise<QueryResult> => {
+    const client = await pool.connect();
+    try {
+        const result: QueryResult = await client.query(text, params);
+        return result;
+    } finally {
+        client.release();
+    }
+};
