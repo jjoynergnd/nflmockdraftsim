@@ -1,14 +1,19 @@
-import Layout from "@/components/Layout";
-import Navbar from "@/components/Navbar";
+﻿import "./globals.css";
+import type { Metadata } from "next";
 
-export default function HomePage() {
+export const metadata: Metadata = {
+  title: "NFL Mock Draft Simulator",
+  description: "Build and run your own NFL mock drafts",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <Layout>
-      <Navbar />
-      <main style={{ padding: "1rem" }}>
-        <h1>Welcome to NFL Mock Draft Simulator</h1>
-        <p>Your project is set up and ready to build!</p>
-      </main>
-    </Layout>
+    <html lang="en">
+      <body>{children}</body>
+    </html>
   );
 }
