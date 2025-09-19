@@ -1,4 +1,6 @@
-﻿import { divisions, Division, Team, league } from "@/constants/nflTeams";
+﻿"use client";
+
+import { divisions, Division, Team, league } from "@/constants/nflTeams";
 import Image from "next/image";
 import { useState } from "react";
 
