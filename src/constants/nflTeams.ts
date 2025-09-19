@@ -10,6 +10,12 @@ export type Division = {
   teams: Team[];
 };
 
+export const league = {
+  name: "NFL",
+  code: "NFL",
+  logo: "/logos/nfl/nfl.svg", // matches your existing file
+};
+
 
 export const divisions: Division[] = [
   {
