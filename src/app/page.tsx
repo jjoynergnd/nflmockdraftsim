@@ -9,9 +9,9 @@ export default function HomePage() {
   const [draftSpeed, setDraftSpeed] = useState<"Low" | "Med" | "Fast">("Med");
 
   return (
-    <main className="p-4 max-w-6xl mx-auto">
+    <main className="p-4 max-w-7xl mx-auto min-h-screen flex flex-col">
       {/* Top controls */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start mb-8 gap-4">
         {/* Left side: Rounds + Speed */}
         <div className="flex flex-col gap-4 w-full sm:w-auto">
           {/* Rounds selector (tab style) */}
@@ -55,14 +55,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right side: NFL logo + League label */}
-        <div className="flex justify-center sm:justify-end items-center gap-2 mt-4 sm:mt-0 sm:ml-4">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
-            League
-            <span className="text-sm font-normal text-gray-600">
-              (Draft for all 32 teams)
-            </span>
-          </h2>
+        {/* Right side: League container */}
+        <div className="w-full sm:w-64 flex flex-col items-center border border-gray-200 rounded-lg p-4 shadow-sm">
+          <span className="text-lg font-semibold text-center mb-2">
+            League (Draft for all 32 teams)
+          </span>
           <button className="flex flex-col items-center border border-gray-200 rounded-lg p-2 hover:scale-105 transition">
             <Image
               src={league.logo}
@@ -77,31 +74,40 @@ export default function HomePage() {
       </div>
 
       {/* Divisions */}
-      {divisions.map((division: Division) => (
-        <section
-          key={division.name}
-          className="mb-8 p-4 rounded-lg border border-gray-200 shadow-sm"
-        >
-          <h2 className="text-lg font-semibold mb-3">{division.name}</h2>
-          <div className="border-t border-gray-200 pt-3 grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {division.teams.map((team: Team) => (
-              <button
-                key={team.code}
-                className="flex flex-col items-center p-2 border border-gray-200 rounded-lg hover:scale-105 hover:shadow-sm transition"
-              >
-                <Image
-                  src={team.logo}
-                  alt={`${team.city} ${team.name}`}
-                  width={48}
-                  height={48}
-                  className="w-12 h-12"
-                />
-                <span className="text-xs mt-1">{team.name}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-      ))}
+      <div className="flex-1">
+        {divisions.map((division: Division) => (
+          <section
+            key={division.name}
+            className="mb-8 p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition"
+          >
+            <h2 className="text-lg font-semibold mb-3">{division.name}</h2>
+            <div className="border-t border-gray-200 pt-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+              {division.teams.map((team: Team) => (
+                <button
+                  key={team.code}
+                  className="flex flex-col items-center p-2 border border-gray-200 rounded-lg hover:scale-105 hover:shadow-sm transition"
+                >
+                  <Image
+                    src={team.logo}
+                    alt={`${team.city} ${team.name}`}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12"
+                  />
+                  <span className="text-xs mt-1">{team.name}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {/* START DRAFT button */}
+      <div className="flex justify-center mt-6">
+        <button className="bg-green-200 hover:bg-green-300 text-gray-800 font-semibold px-8 py-3 rounded-lg shadow-md transition">
+          START DRAFT
+        </button>
+      </div>
     </main>
   );
 }
