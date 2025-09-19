@@ -11,8 +11,8 @@ export default function HomePage() {
   return (
     <main className="p-4 max-w-7xl mx-auto min-h-screen flex flex-col">
       {/* Top controls */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start mb-8 gap-4">
-        {/* Left side: Rounds + Speed */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start mb-4 gap-4">
+        {/* Left: Rounds + Speed */}
         <div className="flex flex-col gap-4 w-full sm:w-auto">
           {/* Rounds selector (tab style) */}
           <div>
@@ -55,9 +55,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right side: League container */}
-        <div className="w-full sm:w-64 flex flex-col items-center border border-gray-200 rounded-lg p-4 shadow-sm">
-          <span className="text-lg font-semibold text-center mb-2">
+        {/* Right: League container */}
+        <div className="w-full sm:w-64 flex flex-col items-center border border-gray-200 rounded-lg p-3 shadow-sm">
+          <span className="text-sm font-semibold text-center mb-2 leading-tight">
             League (Draft for all 32 teams)
           </span>
           <button className="flex flex-col items-center border border-gray-200 rounded-lg p-2 hover:scale-105 transition">
@@ -73,15 +73,15 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Divisions */}
-      <div className="flex-1">
+      {/* Divisions container: scrollable if viewport is small */}
+      <div className="flex-1 overflow-auto">
         {divisions.map((division: Division) => (
           <section
             key={division.name}
-            className="mb-8 p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition"
+            className="mb-6 p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition"
           >
             <h2 className="text-lg font-semibold mb-3">{division.name}</h2>
-            <div className="border-t border-gray-200 pt-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div className="border-t border-gray-200 pt-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 justify-center">
               {division.teams.map((team: Team) => (
                 <button
                   key={team.code}
@@ -103,7 +103,7 @@ export default function HomePage() {
       </div>
 
       {/* START DRAFT button */}
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-4">
         <button className="bg-green-200 hover:bg-green-300 text-gray-800 font-semibold px-8 py-3 rounded-lg shadow-md transition">
           START DRAFT
         </button>
