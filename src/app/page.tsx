@@ -20,8 +20,8 @@ export default function HomePage() {
               <button
                 key={round}
                 className={`px-4 py-2 -mb-px font-medium border-b-2 transition ${
-                  selectedRounds === round
-                    ? "border-gray-800 text-gray-800"
+                  round <= selectedRounds
+                    ? "border-blue-500 text-blue-600"
                     : "border-transparent text-gray-500 hover:text-gray-800"
                 }`}
                 onClick={() => setSelectedRounds(round)}

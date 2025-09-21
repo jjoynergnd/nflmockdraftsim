@@ -53,23 +53,27 @@ export default function DraftPage() {
           </button>
         </div>
         <div className="text-sm text-gray-500">
-          Rounds: {rounds} | Speed: {speed}
+          Rounds: {rounds} | Speed: {speed} | Team: {team}
         </div>
       </div>
 
       {/* Team + needs */}
       <div className="mb-6">
-        <h1 className="text-xl font-bold mb-2">{team}</h1>
-        <div className="flex gap-2 flex-wrap">
-          {teamNeeds.map((need) => (
-            <span
-              key={need}
-              className="px-3 py-1 border border-gray-300 rounded-full text-sm bg-gray-50"
-            >
-              {need}
-            </span>
-          ))}
-        </div>
+        <h1 className="text-xl font-bold mb-2">
+          {team === "ALL" ? "League Draft" : team}
+        </h1>
+        {team !== "ALL" && (
+          <div className="flex gap-2 flex-wrap">
+            {teamNeeds.map((need) => (
+              <span
+                key={need}
+                className="px-3 py-1 border border-gray-300 rounded-full text-sm bg-gray-50"
+              >
+                {need}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Tabs */}
