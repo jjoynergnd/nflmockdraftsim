@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Play, Pause, RotateCcw, Handshake, Mail, Bot } from "lucide-react";
 
