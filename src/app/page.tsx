@@ -3,10 +3,21 @@
 import { divisions, Division, Team, league } from "@/constants/nflTeams";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const router = useRouter();
+
   const [selectedRounds, setSelectedRounds] = useState(1);
   const [draftSpeed, setDraftSpeed] = useState<"Low" | "Med" | "Fast">("Med");
+  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
+
+  const handleStartDraft = () => {
+    if (!selectedTeam) return; // don’t navigate if no team is selected
+    router.push(
+      `/draft?team=${selectedTeam}&rounds=${selectedRounds}&speed=${draftSpeed}`
+    );
+  };
 
   return (
     <main className="p-4 max-w-7xl mx-auto min-h-screen flex flex-col">
@@ -58,7 +69,12 @@ export default function HomePage() {
             <span className="text-sm font-semibold text-center mb-2 leading-tight">
               League (Draft for all 32 teams)
             </span>
-            <button className="flex flex-col items-center border border-gray-200 rounded-lg p-2 hover:scale-105 transition">
+            <button
+              className={`flex flex-col items-center border border-gray-200 rounded-lg p-2 hover:scale-105 transition ${
+                selectedTeam === "ALL" ? "ring-2 ring-blue-500" : ""
+              }`}
+              onClick={() => setSelectedTeam("ALL")}
+            >
               <Image
                 src={league.logo}
                 alt={league.name}
@@ -84,7 +100,10 @@ export default function HomePage() {
               {division.teams.map((team: Team) => (
                 <button
                   key={team.code}
-                  className="flex flex-col items-center p-2 border border-gray-200 rounded-lg hover:scale-105 hover:shadow-sm transition"
+                  className={`flex flex-col items-center p-2 border border-gray-200 rounded-lg hover:scale-105 hover:shadow-sm transition ${
+                    selectedTeam === team.code ? "ring-2 ring-blue-500" : ""
+                  }`}
+                  onClick={() => setSelectedTeam(team.code)}
                 >
                   <Image
                     src={team.logo}
@@ -103,7 +122,15 @@ export default function HomePage() {
 
       {/* START DRAFT button */}
       <div className="flex justify-center mt-4">
-        <button className="bg-green-200 hover:bg-green-300 text-gray-800 font-semibold px-8 py-3 rounded-lg shadow-md transition">
+        <button
+          onClick={handleStartDraft}
+          disabled={!selectedTeam}
+          className={`px-8 py-3 rounded-lg shadow-md transition font-semibold ${
+            selectedTeam
+              ? "bg-green-200 hover:bg-green-300 text-gray-800"
+              : "bg-gray-200 text-gray-500 cursor-not-allowed"
+          }`}
+        >
           START DRAFT
         </button>
       </div>
